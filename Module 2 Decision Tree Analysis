@@ -1,0 +1,28 @@
+# Import libraries
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor, plot_tree 
+import matplotlib.pyplot as plt
+
+# Import data
+df = pd.read_csv('California Housing Data.csv', delimiter = ",")
+
+# Split data into features (X) and response (y)
+# YOUR CODE HERE
+X= df.loc[:,['longitude','latitude']]
+y= df.loc[:,['median_house_value']]
+
+# Fit data to tree-based regression model
+regressor = DecisionTreeRegressor(random_state=0)
+# YOUR CODE HERE
+regressor = regressor.fit(X,y)
+
+# Visualising the decision tree regression results
+plt.figure(figsize=(6,6), dpi=150)
+plot_tree(regressor,max_depth=2,feature_names=X.columns, impurity=False)
+plt.show()
+
+# A scatter plot of latitude vs longitude
+
+df.plot.scatter(x='longitude',y='latitude',c= df['median_house_value'] ,s=1.5, cmap= 'rainbow')
+
+
